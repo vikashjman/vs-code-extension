@@ -9,7 +9,19 @@ export function activate(context: vscode.ExtensionContext) {
     const updateDecorations = (editor: vscode.TextEditor) => {
         if (!editor) return;
         
-        const regEx = /\/\/\s*HIDE_START[\s\S]*?\/\/\s*HIDE_END/g;
+        let regEx;
+        switch (editor.document.languageId) {
+            case 'javascript':
+            case 'typescript':
+                regEx = /\/\/\s*HIDE_START[\s\S]*?\/\/\s*HIDE_END/g;
+                break;
+            case 'python':
+                regEx = /#\s*HIDE_START[\s\S]*?#\s*HIDE_END/g;
+                break;
+            default:
+                return;
+        }
+
         const text = editor.document.getText();
         const decorations: vscode.DecorationOptions[] = [];
         let match;
