@@ -16,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
                 regEx = /\/\/\s*HIDE_START[\s\S]*?\/\/\s*HIDE_END/g;
                 break;
             case 'python':
-                regEx = /#\s*HIDE_START[\s\S]*?#\s*HIDE_END/g;
+                regEx = /#\s*HIDE_START[\s\S]*?#\s*HIDE_END|.*#STEALTH.*/g;
                 break;
             default:
                 return;
